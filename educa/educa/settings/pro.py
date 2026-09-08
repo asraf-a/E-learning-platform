@@ -15,6 +15,17 @@ ALLOWED_HOSTS = [
     '*',
 ]
 
+# Trusted origins for CSRF in modern Django (Required for Render HTTPS)
+CSRF_TRUSTED_ORIGINS = [
+    'https://*.onrender.com',
+    'https://educa-platform.onrender.com',
+    'https://*.educaproject.com',
+    'https://educaproject.com',
+]
+
+# Trust Render reverse proxy SSL header
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
 DATABASE_URL = os.environ.get('DATABASE_URL')
 
 if DATABASE_URL:
