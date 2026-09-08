@@ -20,11 +20,23 @@
             </p>
             {{ object.overview|linebreaks }}
             {% if request.user.is_authenticated %}
-                <form action="{% url "student_enroll_course" %}" method="post">
-                    {{ enroll_form }}
-                    {% csrf_token %}
-                    <p style="margin-top: 20px;"><input type="submit" value="Enroll now"></p>
-                </form>
+                {% if request.user in object.students.all %}
+                    <p style="margin-top: 20px;">
+                        <a href="{% url "student_course_detail" object.id %}" class="button">Access Course</a>
+                        <a href="{% url "chat:course_chat_room" object.id %}" class="button" style="margin-left: 10px; background-color: #059669;">💬 Course Chat</a>
+                    </p>
+                {% elif request.user == object.owner %}
+                    <p style="margin-top: 20px;">
+                        <a href="{% url "course_module_update" object.id %}" class="button">Manage Modules</a>
+                        <a href="{% url "chat:course_chat_room" object.id %}" class="button" style="margin-left: 10px; background-color: #059669;">💬 Course Chat</a>
+                    </p>
+                {% else %}
+                    <form action="{% url "student_enroll_course" %}" method="post">
+                        {{ enroll_form }}
+                        {% csrf_token %}
+                        <p style="margin-top: 20px;"><input type="submit" value="Enroll now"></p>
+                    </form>
+                {% endif %}
             {% else %}
                 <p style="margin-top: 20px;">
                     <a href="{% url "student_registration" %}" class="button">

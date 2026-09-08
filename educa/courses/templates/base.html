@@ -15,8 +15,9 @@
             {% if request.user.is_authenticated %}
                 <li><span style="color: rgba(255,255,255,0.85); font-size: 14px; margin-right: 5px;">Hello, {{ request.user.username }}</span></li>
                 <li><a href="{% url "student_course_list" %}">Enrolled Courses</a></li>
-                {% if request.user.is_staff or request.user.courses_created.exists or request.user.is_superuser %}
-                    <li><a href="{% url "manage_course_list" %}">Instructor CMS</a></li>
+                <li><a href="{% url "manage_course_list" %}">Teach / Manage Courses</a></li>
+                {% if request.user.is_staff or request.user.is_superuser %}
+                    <li><a href="/admin/" target="_blank">Admin Panel</a></li>
                 {% endif %}
                 <li>
                     <form action="{% url "logout" %}" method="post" style="display:inline; margin:0; padding:0;">

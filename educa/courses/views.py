@@ -57,7 +57,7 @@ class CourseDeleteView(OwnerCourseMixin, DeleteView):
     permission_required = 'courses.delete_course'
 
 
-class CourseModuleUpdateView(TemplateResponseMixin, View):
+class CourseModuleUpdateView(LoginRequiredMixin, TemplateResponseMixin, View):
     template_name = 'courses/manage/module/formset.html'
     course = None
 
@@ -84,7 +84,7 @@ class CourseModuleUpdateView(TemplateResponseMixin, View):
                                         'formset': formset})
 
 
-class ContentCreateUpdateView(TemplateResponseMixin, View):
+class ContentCreateUpdateView(LoginRequiredMixin, TemplateResponseMixin, View):
     module = None
     model = None
     obj = None
@@ -118,7 +118,7 @@ class ContentCreateUpdateView(TemplateResponseMixin, View):
     def get(self, request, module_id, model_name, id=None):
         form = self.get_form(self.model, instance=self.obj)
         return self.render_to_response({'form': form,
-                                        'object': self.obj})
+                                         'object': self.obj})
 
     def post(self, request, module_id, model_name, id=None):
         form = self.get_form(self.model,
@@ -135,10 +135,10 @@ class ContentCreateUpdateView(TemplateResponseMixin, View):
                                        item=obj)
             return redirect('module_content_list', self.module.id)
         return self.render_to_response({'form': form,
-                                        'object': self.obj})
+                                         'object': self.obj})
 
 
-class ContentDeleteView(View):
+class ContentDeleteView(LoginRequiredMixin, View):
     def post(self, request, id):
         content = get_object_or_404(Content,
                                     id=id,
@@ -149,7 +149,7 @@ class ContentDeleteView(View):
         return redirect('module_content_list', module.id)
 
 
-class ModuleContentListView(TemplateResponseMixin, View):
+class ModuleContentListView(LoginRequiredMixin, TemplateResponseMixin, View):
     template_name = 'courses/manage/module/content_list.html'
 
     def get(self, request, module_id):
@@ -159,7 +159,8 @@ class ModuleContentListView(TemplateResponseMixin, View):
         return self.render_to_response({'module': module})
 
 
-class ModuleOrderView(CsrfExemptMixin,
+class ModuleOrderView(LoginRequiredMixin,
+                      CsrfExemptMixin,
                       JsonRequestResponseMixin,
                       View):
     def post(self, request):
@@ -169,7 +170,8 @@ class ModuleOrderView(CsrfExemptMixin,
         return self.render_json_response({'saved': 'OK'})
 
 
-class ContentOrderView(CsrfExemptMixin,
+class ContentOrderView(LoginRequiredMixin,
+                       CsrfExemptMixin,
                        JsonRequestResponseMixin,
                        View):
     def post(self, request):

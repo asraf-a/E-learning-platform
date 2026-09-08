@@ -1,9 +1,10 @@
+from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView, FormView
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import login
 from django.contrib.auth.mixins import LoginRequiredMixin
 from courses.models import Course
 from .forms import CourseEnrollForm
@@ -15,13 +16,9 @@ class StudentRegistrationView(CreateView):
     success_url = reverse_lazy('student_course_list')
 
     def form_valid(self, form):
-        result = super().form_valid(form)
-        cd = form.cleaned_data
-        user = authenticate(username=cd['username'],
-                            password=cd['password1'])
-        if user:
-            login(self.request, user)
-        return result
+        user = form.save()
+        login(self.request, user)
+        return redirect(self.success_url)
 
 
 class StudentEnrollCourseView(LoginRequiredMixin, FormView):
@@ -47,7 +44,7 @@ class StudentCourseListView(LoginRequiredMixin, ListView):
         return qs.filter(students__in=[self.request.user])
 
 
-class StudentCourseDetailView(DetailView):
+class StudentCourseDetailView(LoginRequiredMixin, DetailView):
     model = Course
     template_name = 'students/course/detail.html'
 
