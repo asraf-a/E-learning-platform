@@ -1,0 +1,31 @@
+# Python / Django
+__pycache__/
+*.py[cod]
+*$py.class
+*.sqlite3
+db.sqlite3
+local_settings.py
+.env
+
+# Virtual Environment
+venv/
+env/
+ENV/
+
+# Static and media collections (can be generated in build)
+# Note: Keep staticfiles uncommitted as collectstatic handles it on Render
+educa/static/
+
+# Logs and sockets
+logs/*.log
+*.sock
+*.pid
+
+# SSL certificates (sensitive)
+ssl/*.key
+ssl/*.crt
+
+# IDE / Editor
+.vscode/
+.idea/
+*.swp

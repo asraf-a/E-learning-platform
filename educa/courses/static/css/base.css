@@ -1,0 +1,382 @@
+:root {
+    --primary: #4361ee;
+    --primary-hover: #3a56d4;
+    --primary-light: #eef2ff;
+    --danger: #ef4444;
+    --danger-hover: #dc2626;
+    --success: #10b981;
+    --gray-50: #f8fafc;
+    --gray-100: #f1f5f9;
+    --gray-200: #e2e8f0;
+    --gray-300: #cbd5e1;
+    --gray-600: #475569;
+    --gray-700: #334155;
+    --gray-900: #0f172a;
+    --radius: 8px;
+    --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.07), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    color: var(--gray-900);
+    background-color: var(--gray-50);
+    line-height: 1.6;
+    min-height: 100vh;
+}
+
+/* Header */
+#header {
+    background: #ffffff;
+    border-bottom: 1px solid var(--gray-200);
+    padding: 0.85rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+}
+
+#header .logo, #header > a {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--primary);
+    text-decoration: none;
+    letter-spacing: -0.5px;
+}
+
+#header ul {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+#header ul li a {
+    color: var(--gray-700);
+    text-decoration: none;
+    font-weight: 500;
+    padding: 0.4rem 0.8rem;
+    border-radius: var(--radius);
+    transition: all 0.15s ease;
+}
+
+#header ul li a:hover {
+    background: var(--gray-100);
+    color: var(--gray-900);
+}
+
+.logout-form {
+    display: inline;
+}
+
+.logout-btn {
+    background: transparent;
+    border: 1px solid var(--gray-300);
+    color: var(--gray-700);
+    font-family: inherit;
+    font-size: 0.95rem;
+    font-weight: 500;
+    padding: 0.4rem 0.85rem;
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.logout-btn:hover {
+    background: var(--danger);
+    color: #ffffff;
+    border-color: var(--danger);
+}
+
+/* Main Content */
+#content {
+    max-width: 1100px;
+    margin: 2rem auto;
+    padding: 0 1.5rem;
+}
+
+h1 {
+    font-size: 1.85rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    color: var(--gray-900);
+}
+
+h2 {
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: var(--gray-700);
+}
+
+h3 {
+    font-size: 1.15rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+    color: var(--gray-700);
+}
+
+/* Common Card Box */
+.module, .card {
+    background: #ffffff;
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius);
+    padding: 1.75rem;
+    box-shadow: var(--shadow);
+    margin-bottom: 1.5rem;
+}
+
+/* Buttons and Links */
+a.btn, button, input[type="submit"] {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.55rem 1.1rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+    border-radius: var(--radius);
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.15s ease, transform 0.05s ease;
+}
+
+input[type="submit"], button[type="submit"], a.btn-primary {
+    background-color: var(--primary);
+    color: #ffffff;
+}
+
+input[type="submit"]:hover, button[type="submit"]:hover, a.btn-primary:hover {
+    background-color: var(--primary-hover);
+}
+
+a.btn-danger, input[value="Confirm"], input[value="Delete"] {
+    background-color: var(--danger);
+    color: #ffffff;
+}
+
+a.btn-danger:hover, input[value="Confirm"]:hover, input[value="Delete"]:hover {
+    background-color: var(--danger-hover);
+}
+
+a.btn-secondary, a[href*="manage_course_list"], .btn-cancel {
+    background-color: var(--gray-100);
+    color: var(--gray-700);
+    border: 1px solid var(--gray-300);
+    margin-left: 0.5rem;
+    padding: 0.5rem 1rem;
+    text-decoration: none;
+    border-radius: var(--radius);
+    font-weight: 500;
+}
+
+a.btn-secondary:hover, a[href*="manage_course_list"]:hover, .btn-cancel:hover {
+    background-color: var(--gray-200);
+    color: var(--gray-900);
+}
+
+/* Forms */
+form p {
+    margin-bottom: 1.2rem;
+}
+
+label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 0.35rem;
+    color: var(--gray-700);
+    font-size: 0.95rem;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="email"],
+input[type="url"],
+input[type="file"],
+select,
+textarea {
+    width: 100%;
+    max-width: 600px;
+    padding: 0.6rem 0.85rem;
+    border: 1px solid var(--gray-300);
+    border-radius: var(--radius);
+    font-family: inherit;
+    font-size: 0.95rem;
+    background-color: #ffffff;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus,
+select:focus,
+textarea:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.15);
+}
+
+textarea {
+    min-height: 120px;
+}
+
+/* Courses List */
+.course-card {
+    background: #ffffff;
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius);
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 1rem;
+    box-shadow: var(--shadow);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.course-card h3 {
+    margin: 0;
+    color: var(--gray-900);
+}
+
+.course-actions {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.course-actions a {
+    text-decoration: none;
+    padding: 0.4rem 0.8rem;
+    border-radius: var(--radius);
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: all 0.15s ease;
+}
+
+.course-actions a[href*="edit"] {
+    background-color: var(--primary-light);
+    color: var(--primary);
+}
+
+.course-actions a[href*="delete"] {
+    background-color: #fee2e2;
+    color: var(--danger);
+}
+
+.course-actions a[href*="module"] {
+    background-color: var(--gray-100);
+    color: var(--gray-700);
+    border: 1px solid var(--gray-300);
+}
+
+.course-actions a[href*="module_content_list"] {
+    background-color: var(--primary);
+    color: #ffffff;
+}
+
+.course-actions a:hover {
+    filter: brightness(0.95);
+}
+
+/* Module Content Management Layout */
+.contents-grid {
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    gap: 1.5rem;
+    align-items: start;
+}
+
+.contents {
+    background: #ffffff;
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius);
+    padding: 1.25rem;
+    box-shadow: var(--shadow);
+}
+
+#modules {
+    list-style: none;
+    margin-bottom: 1rem;
+}
+
+#modules li {
+    padding: 0.75rem 1rem;
+    margin-bottom: 0.5rem;
+    background: var(--gray-50);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius);
+    cursor: grab;
+    transition: all 0.15s ease;
+}
+
+#modules li:hover {
+    background: #ffffff;
+    border-color: var(--gray-300);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+#modules li.selected {
+    background: var(--primary-light);
+    border-color: var(--primary);
+}
+
+#modules li a {
+    text-decoration: none;
+    color: var(--gray-900);
+    display: block;
+    font-weight: 500;
+}
+
+#modules li.selected a {
+    color: var(--primary);
+    font-weight: 600;
+}
+
+#module-contents > div {
+    background: #ffffff;
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius);
+    padding: 1rem 1.25rem;
+    margin-bottom: 0.75rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+    cursor: grab;
+}
+
+#module-contents > div:hover {
+    border-color: var(--primary);
+    box-shadow: var(--shadow);
+}
+
+.content-types {
+    list-style: none;
+    display: flex;
+    gap: 0.75rem;
+    margin-top: 1rem;
+    flex-wrap: wrap;
+}
+
+.content-types li a {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background: var(--primary-light);
+    color: var(--primary);
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: var(--radius);
+    transition: all 0.15s ease;
+}
+
+.content-types li a:hover {
+    background: var(--primary);
+    color: #ffffff;
+}

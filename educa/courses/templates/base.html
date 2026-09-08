@@ -1,0 +1,43 @@
+
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}Educa{% endblock %}</title>
+    <link href="{% static 'css/base.css' %}" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+</head>
+
+<body>
+
+    <div id="header">
+        <a href="{% url 'manage_course_list' %}" class="logo">Educa</a>
+
+        <ul>
+            {% if request.user.is_authenticated %}
+                <li>
+                    <form action="{% url 'logout' %}" method="post" class="logout-form">
+                        {% csrf_token %}
+                        <button type="submit" class="logout-btn">Sign out</button>
+                    </form>
+                </li>
+            {% else %}
+                <li>
+                    <a href="{% url 'login' %}">Sign in</a>
+                </li>
+            {% endif %}
+        </ul>
+    </div>
+
+    <div id="content">
+        {% block content %}
+        {% endblock %}
+    </div>
+
+    {% block domready %}
+    {% endblock %}
+
+</body>
+</html>
