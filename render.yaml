@@ -9,8 +9,8 @@ services:
     name: educa-platform
     runtime: python
     plan: free
-    buildCommand: "./build.sh"
-    startCommand: "daphne -b 0.0.0.0 -p $PORT educa.asgi:application --chdir educa"
+    buildCommand: "bash ./build.sh"
+    startCommand: "cd educa && daphne -b 0.0.0.0 -p $PORT educa.asgi:application"
     envVars:
       - key: PYTHON_VERSION
         value: 3.12.0
