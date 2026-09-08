@@ -1,25 +1,33 @@
 import os
 from pathlib import Path
+from django.urls import reverse_lazy
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-# Pointing to the parent directory containing manage.py
+# BASE_DIR points to the directory containing manage.py
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get(
     'SECRET_KEY',
-    'django-insecure-^ll1a@!n^tep+@*t91rzan#06#%y2_c5$6*!@76#9gu+l=dv$+'
+    'django-insecure-01r@%r%vp9njg7$ng6(9b82xi(hjlv*0umoeaw-d3z+^jx&!v&'
 )
 
 # Application definition
 INSTALLED_APPS = [
+    'daphne',
     'courses.apps.CoursesConfig',
+    'students.apps.StudentsConfig',
+    'chat.apps.ChatConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'embed_video',
+    'memcache_status',
+    'rest_framework',
+    'channels',
 ]
 
 MIDDLEWARE = [
@@ -52,6 +60,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'educa.wsgi.application'
+ASGI_APPLICATION = 'educa.asgi.application'
 
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
@@ -78,12 +87,45 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
-
-# WhiteNoise storage for compressed and cached static files
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-
-LOGIN_REDIRECT_URL = 'manage_course_list'
-LOGOUT_REDIRECT_URL = 'login'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+
+LOGIN_REDIRECT_URL = reverse_lazy('student_course_list')
+LOGOUT_REDIRECT_URL = 'login'
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+        'LOCATION': 'educa_cache',
+    },
+}
+
+CACHE_MIDDLEWARE_ALIAS = 'default'
+CACHE_MIDDLEWARE_SECONDS = 60 * 15  # 15 minutes
+CACHE_MIDDLEWARE_KEY_PREFIX = 'educa'
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ]
+}
+
+# Channel Layers for Django Channels / WebSockets
+REDIS_URL = os.environ.get('REDIS_URL')
+if REDIS_URL:
+    CHANNEL_LAYERS = {
+        'default': {
+            'BACKEND': 'channels_redis.core.RedisChannelLayer',
+            'CONFIG': {
+                'hosts': [REDIS_URL],
+            },
+        }
+    }
+else:
+    CHANNEL_LAYERS = {
+        'default': {
+            'BACKEND': 'channels.layers.InMemoryChannelLayer',
+        }
+    }

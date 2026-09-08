@@ -7,7 +7,6 @@ ADMINS = (
     ('Antonio M', 'email@mydomain.com'),
 )
 
-# Allow Render subdomains, custom domains, and local testing
 ALLOWED_HOSTS = [
     '.onrender.com',
     '.educaproject.com',
@@ -16,8 +15,6 @@ ALLOWED_HOSTS = [
     '*',
 ]
 
-# Database configuration:
-# Uses DATABASE_URL from Render if available, otherwise PostgreSQL config from Chapter 14
 DATABASE_URL = os.environ.get('DATABASE_URL')
 
 if DATABASE_URL:
@@ -31,7 +28,6 @@ if DATABASE_URL:
             )
         }
     except ImportError:
-        # Fallback if dj-database-url is not installed
         DATABASES = {
             'default': {
                 'ENGINE': 'django.db.backends.postgresql',
@@ -54,7 +50,6 @@ else:
         }
     }
 
-# Security settings from Chapter 14
 SECURE_SSL_REDIRECT = os.environ.get('SECURE_SSL_REDIRECT', 'True') == 'True'
 CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SECURE = True

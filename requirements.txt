@@ -1,6 +1,15 @@
 Django>=5.0,<7.0
-django-braces>=1.14.0
+channels>=4.0.0
+channels_redis>=4.2.0
+daphne>=4.1.0
+djangorestframework>=3.15.0
+django-braces>=1.15.0
+django-embed-video>=1.4.0
+django-memcache-status>=2.2
+pillow>=10.0.0
+pymemcache>=4.0.0
+redis>=5.0.0
+requests>=2.31.0
 whitenoise>=6.6.0
-gunicorn>=21.2.0
 psycopg[binary]>=3.1.18
 dj-database-url>=2.1.0

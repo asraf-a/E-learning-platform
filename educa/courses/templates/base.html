@@ -1,43 +1,46 @@
-
 {% load static %}
-
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{% block title %}Educa{% endblock %}</title>
     <link href="{% static 'css/base.css' %}" rel="stylesheet">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 </head>
-
 <body>
-
     <div id="header">
-        <a href="{% url 'manage_course_list' %}" class="logo">Educa</a>
-
-        <ul>
+        <a href="/" class="logo">Educa</a>
+        <ul class="menu">
+            <li><a href="{% url "course_list" %}">Courses</a></li>
             {% if request.user.is_authenticated %}
+                <li><span style="color: rgba(255,255,255,0.85); font-size: 14px; margin-right: 5px;">Hello, {{ request.user.username }}</span></li>
+                <li><a href="{% url "student_course_list" %}">Enrolled Courses</a></li>
+                {% if request.user.is_staff or request.user.courses_created.exists or request.user.is_superuser %}
+                    <li><a href="{% url "manage_course_list" %}">Instructor CMS</a></li>
+                {% endif %}
                 <li>
-                    <form action="{% url 'logout' %}" method="post" class="logout-form">
+                    <form action="{% url "logout" %}" method="post" style="display:inline; margin:0; padding:0;">
                         {% csrf_token %}
                         <button type="submit" class="logout-btn">Sign out</button>
                     </form>
                 </li>
             {% else %}
-                <li>
-                    <a href="{% url 'login' %}">Sign in</a>
-                </li>
+                <li><a href="{% url "student_registration" %}">Sign up</a></li>
+                <li><a href="{% url "login" %}">Sign in</a></li>
             {% endif %}
         </ul>
     </div>
-
     <div id="content">
         {% block content %}
         {% endblock %}
     </div>
-
-    {% block domready %}
-    {% endblock %}
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            {% block domready %}
+            {% endblock %}
+        });
+    </script>
 </body>
 </html>

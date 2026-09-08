@@ -5,21 +5,14 @@
 {% endblock %}
 
 {% block content %}
-
-<h1>Edit "{{ course.title }}"</h1>
-
-<div class="module">
-    <h2>Course modules</h2>
-    <form method="post">
-        {{ formset.management_form }}
-        {{ formset.as_p }}
-        {% csrf_token %}
-
-        <p>
-            <input type="submit" value="Save modules">
-            <a href="{% url 'manage_course_list' %}">Cancel</a>
-        </p>
-    </form>
-</div>
-
+    <h1>Edit "{{ course.title }}"</h1>
+    <div class="module">
+        <h2>Course modules</h2>
+        <form method="post">
+            {{ formset.management_form }}
+            {{ formset }}
+            {% csrf_token %}
+            <p style="margin-top: 20px;"><input type="submit" value="Save modules"></p>
+        </form>
+    </div>
 {% endblock %}

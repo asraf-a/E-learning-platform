@@ -10,7 +10,7 @@ services:
     runtime: python
     plan: free
     buildCommand: "./build.sh"
-    startCommand: "gunicorn educa.wsgi:application --chdir educa"
+    startCommand: "daphne -b 0.0.0.0 -p $PORT educa.asgi:application --chdir educa"
     envVars:
       - key: PYTHON_VERSION
         value: 3.12.0

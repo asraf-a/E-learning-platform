@@ -1,4 +1,3 @@
-
 from django.contrib import admin
 from .models import Subject, Course, Module
 
@@ -20,4 +19,8 @@ class CourseAdmin(admin.ModelAdmin):
     search_fields = ['title', 'overview']
     prepopulated_fields = {'slug': ('title',)}
     inlines = [ModuleInline]
+
+
+# use memcache admin index site
+admin.site.index_template = 'memcache_status/admin_index.html'
 

@@ -1,0 +1,1 @@
+# courses templatetags package
