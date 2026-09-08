@@ -11,6 +11,8 @@ if [ -f "educa/manage.py" ]; then
     python educa/manage.py collectstatic --no-input --settings=educa.settings.pro
     echo "==> Applying database migrations..."
     python educa/manage.py migrate --settings=educa.settings.pro
+    echo "==> Loading default subjects..."
+    python educa/manage.py loaddata subjects.json --settings=educa.settings.pro || true
     echo "==> Ensuring admin user exists..."
     python educa/manage.py shell --settings=educa.settings.pro << 'EOF'
 from django.contrib.auth import get_user_model
@@ -29,6 +31,8 @@ else
     python manage.py collectstatic --no-input --settings=educa.settings.pro
     echo "==> Applying database migrations..."
     python manage.py migrate --settings=educa.settings.pro
+    echo "==> Loading default subjects..."
+    python manage.py loaddata subjects.json --settings=educa.settings.pro || true
     echo "==> Ensuring admin user exists..."
     python manage.py shell --settings=educa.settings.pro << 'EOF'
 from django.contrib.auth import get_user_model
